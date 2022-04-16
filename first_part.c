@@ -6,16 +6,17 @@ int from_char_int(int input)
 {
     int ret = 0;
     int flag_minus = 0;
+    int sumbol_weight = 256;
     while (input != 0)
     {
         if ('-' == (char)input)
         {
-            input /= 256;
+            input /= sumbol_weight;
             flag_minus = 1;
         }
         ret *= 10;
-        ret += (char)(input % 256 ) - (char)'0';
-        input /= 256;
+        ret += (char)(input % sumbol_weight ) - (char)'0';
+        input /= sumbol_weight;
     }
     if (flag_minus)
     {
@@ -66,7 +67,7 @@ int check_input(char input) // 0 - (, -1 - унарные, -2 - унарный �
 
     input = from_char_int(input);
 
-    if ((input < 0))
+    if (input < 0)
     {
         return -2;
     }
@@ -85,7 +86,7 @@ void print_to_staple(int mode)
 
     readed = pop();
 
-    if (mode == 1 || mode == 3)
+    if (mode != 2)
     {
         while (readed != '(');
         {
@@ -94,7 +95,7 @@ void print_to_staple(int mode)
         }
         if (mode == 1)
         {
-            push(readed);
+            push('(');
         }
     }
     else
@@ -113,7 +114,7 @@ void print_to_staple(int mode)
                 }
             }
         }
-        push(readed);
+        push('(');
         for (int i = 0; i != len_timed; i++)
         {
             push(timed[i]);
@@ -135,7 +136,7 @@ int main()
         if (input_class == -4) // вывод ошибки
         {
             fprintf(stderr, "unknow input");
-            exit(-2);
+            return -2;
         }
         if (input_class < 1) // унарные операции, открывающая скобка и числа
         {
@@ -174,8 +175,8 @@ int main()
         }
         scanf("%s", &input);
     }
-    print_to_staple(3); // вывод после окончания цикла
-    count_open--;
+
+    printf("end\n");
 
     if (count_open == 0)
     {
@@ -184,6 +185,6 @@ int main()
     else
     {
         fprintf(stderr, "err whith '('");
-        exit(-2);
+        return -2;
     }
 }
