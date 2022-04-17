@@ -3,4 +3,5 @@
 
 void push(char);
 char pop();
+void print_stack();
 #endif

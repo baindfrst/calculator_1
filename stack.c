@@ -26,3 +26,13 @@ char pop()
 	}
 	return stack[--len];
 } 
+
+void print_stack()
+{
+	printf("stack print: ");
+	for ( int i = 0; i != len + 1; i++)
+	{
+		printf("%c ", stack[i]);
+	}
+	printf("\n");
+}

@@ -88,14 +88,18 @@ void print_to_staple(int mode)
 
     if (mode != 2)
     {
-        while (readed != '(');
+        while (readed != '(')
         {
             printf("%c\n", readed);
             readed = pop();
         }
         if (mode == 1)
         {
-            push('(');
+            push(readed);
+        }
+        else
+        {
+            printf("%c\n", readed);
         }
     }
     else
@@ -114,7 +118,7 @@ void print_to_staple(int mode)
                 }
             }
         }
-        push('(');
+        push(readed);
         for (int i = 0; i != len_timed; i++)
         {
             push(timed[i]);
@@ -173,9 +177,11 @@ int main()
                 count_open--; 
             }
         }
+        print_stack();
         scanf("%s", &input);
     }
 
+    print_to_staple(3);
     printf("end\n");
 
     if (count_open == 0)
