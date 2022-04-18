@@ -4,12 +4,8 @@
 int main()
 {  
     int a;
-    scanf("%s", &a);
-    printf("%c\n", a);
-    printf("%d\n", a);
-    printf("%d\n", a == '-');
-    a = a - (int)'0';
-    printf("%d\n", a == 3);
+    scanf("%c", &a);
+    printf("%d", a - (char)'0');
 
     return 0;
 }

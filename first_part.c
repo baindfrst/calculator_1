@@ -131,13 +131,34 @@ int main()
     int input;
     int input_class;
     int count_open = 0;
+    int flag_logic = 0;
+
     scanf("%s", &input);
 
     while (input != '=' && input != '\n' && input != EOF)
     {
         input_class = check_input(input);
         printf("%c, %d test\n", input, input_class);
-        if (input_class == -4) // вывод ошибки
+
+        if ((input == '&' || input == '|') && flag_logic == 0)
+        {
+            flag_logic = 1;
+        }
+        else
+        {
+            if (input != '&' && input != '|' && flag_logic == 1)
+            {
+                fprintf(stderr, "unknow input");
+                return -2;
+            }
+            else
+            {
+                flag_logic = 0;
+                goto pass;
+            }
+        }
+
+        if (input_class == -4;) // вывод ошибки
         {
             fprintf(stderr, "unknow input");
             return -2;
@@ -177,7 +198,7 @@ int main()
                 count_open--; 
             }
         }
-        print_stack();
+        pass: print_stack();
         scanf("%s", &input);
     }
 
