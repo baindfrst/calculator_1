@@ -3,10 +3,10 @@
 #include <stdio.h>
 #define n 20
 
-char stack[n];
+int stack[n];
 int len = 0;
 
-void push(char elem)
+void push(int elem)
 {
 	if (len > n)
 	{
@@ -17,7 +17,7 @@ void push(char elem)
 	stack[len++] = elem;
 }
 
-char pop()
+int pop()
 {
 	if (len < 0)
 	{
@@ -29,10 +29,17 @@ char pop()
 
 void print_stack()
 {
-	printf("stack print: ");
+	printf("stack print: %d", len);
 	for ( int i = 0; i != len + 1; i++)
 	{
-		printf("%c ", stack[i]);
+		if (stack[len] / 256 == 0)
+        {
+            printf("%c\n", stack[len]);
+		}
+        else
+        {
+            printf("%c%c", stack[len] % 256, stack[len] / 256);
+        }
 	}
 	printf("\n");
 }
