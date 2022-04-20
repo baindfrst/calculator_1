@@ -18,7 +18,7 @@ void print_to_staple(int mode)
             {
                 printf("%c\n", readed);
             }
-            else-
+            else
             {
                 printf("%c%c\n", (char)(readed % 256), (char)(readed / 256));
             }
@@ -77,6 +77,7 @@ int main()
     int input;
     int count_open = 0;
     int type_operands = 0;
+    int was_input = 0; // отвечает за соблюдение последовательность
 
     char operands[12][6] = {"TRUE", "FALSE", "true", "false", "True", "False", "!TRUE", "!FALSE", "!true", "!false", "!True", "!False"};
 
@@ -88,6 +89,15 @@ int main()
     {
         if ((char)(input / 256) == '&' && (char)(input % 256) == '&')
         {
+            if (was_input == 1)
+            {
+                fprintf(stderr, "unknow input");
+                exit(1);
+            }
+            else
+            {
+                was_input = 0;
+            }
             print_to_staple(2);
             push(input);
         }
@@ -95,6 +105,15 @@ int main()
         {
             if ((char)(input / 256) == '|' && (char)(input % 256) == '|')
             {
+                if (was_input == 1)
+                {
+                    fprintf(stderr, "unknow input");
+                    exit(1);
+                }
+                else
+                {
+                    was_input = 0;
+                }
                 print_to_staple(1);
                 push(input);
             }
@@ -102,6 +121,15 @@ int main()
             {
                 if ((char)(input / 256) == '(' && (char)(input % 256) == '!')
                 {
+                    if (was_input == 0)
+                    {
+                        fprintf(stderr, "unknow input");
+                        exit(1);
+                    }
+                    else
+                    {
+                        was_input = 0;
+                    }
                     count_open++;
                     push('!');
                     push('(');
@@ -110,6 +138,15 @@ int main()
                 {
                     if ((char)(input % 256) == '(')
                     {
+                        if (was_input == 0)
+                        {
+                            fprintf(stderr, "unknow input");
+                            exit(1);
+                        }
+                        else
+                        {
+                            was_input = 0;
+                        }
                         count_open++;
                         push(input);
                     }
@@ -117,6 +154,15 @@ int main()
                     {
                         if ((char)(input % 256) == ')')
                         {
+                            if (was_input == 1)
+                            {
+                                fprintf(stderr, "unknow input");
+                                exit(1);
+                            }
+                            else
+                            {
+                                was_input = 0;
+                            }
                             count_open--;
                             print_to_staple(3);
                         }
@@ -131,6 +177,15 @@ int main()
                                 type_operands = in_array(input, operands, 12);
                                 if (type_operands)
                                 {
+                                    if (was_input == 1)
+                                    {
+                                        fprintf(stderr, "unknow input");
+                                        exit(1);
+                                    }
+                                    else
+                                    {
+                                        was_input = 1;
+                                    }
                                     if (type_operands > 6)
                                     {
                                         push('!');
@@ -160,7 +215,7 @@ int main()
 
     print_to_staple(3);
 
-    if (count_open == 0)
+    if (count_open == 0 && was_input == 1)
     {
         return 0;
     }

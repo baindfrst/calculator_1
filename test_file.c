@@ -4,8 +4,12 @@
 int main()
 {  
     int a;
-    scanf("%c", &a);
-    printf("%d", a - (char)'0');
+    scanf("%5s", &a);
+    while (a != '=')
+    {
+        printf("%5s", a);
+        scanf("%5s", &a);
+    }
 
     return 0;
 }
