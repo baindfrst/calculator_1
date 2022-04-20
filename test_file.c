@@ -3,13 +3,6 @@
 
 int main()
 {  
-    int a;
-    scanf("%5s", &a);
-    while (a != '=')
-    {
-        printf("%5s", a);
-        scanf("%5s", &a);
-    }
-
+    printf("%d", (int)' ');
     return 0;
 }
