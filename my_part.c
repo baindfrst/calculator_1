@@ -170,6 +170,15 @@ int main()
                         {
                             if ((char)(input % 256) == '!')
                             {
+                                if (was_input == 1)
+                                {
+                                    fprintf(stderr, "unknow input");
+                                    exit(1);
+                                }
+                                else
+                                {
+                                    was_input = 0;
+                                }
                                 push('!');
                             }
                             else
