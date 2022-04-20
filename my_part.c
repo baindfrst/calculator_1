@@ -89,7 +89,7 @@ int main()
     {
         if ((char)(input / 256) == '&' && (char)(input % 256) == '&')
         {
-            if (was_input == 1)
+            if (was_input == 0)
             {
                 fprintf(stderr, "unknow input");
                 exit(1);
@@ -105,7 +105,7 @@ int main()
         {
             if ((char)(input / 256) == '|' && (char)(input % 256) == '|')
             {
-                if (was_input == 1)
+                if (was_input == 0)
                 {
                     fprintf(stderr, "unknow input");
                     exit(1);
@@ -121,14 +121,10 @@ int main()
             {
                 if ((char)(input / 256) == '(' && (char)(input % 256) == '!')
                 {
-                    if (was_input == 0)
+                    if (was_input == 1)
                     {
                         fprintf(stderr, "unknow input");
                         exit(1);
-                    }
-                    else
-                    {
-                        was_input = 0;
                     }
                     count_open++;
                     push('!');
@@ -138,14 +134,10 @@ int main()
                 {
                     if ((char)(input % 256) == '(')
                     {
-                        if (was_input == 0)
+                        if (was_input == 1)
                         {
                             fprintf(stderr, "unknow input");
                             exit(1);
-                        }
-                        else
-                        {
-                            was_input = 0;
                         }
                         count_open++;
                         push(input);
@@ -154,21 +146,21 @@ int main()
                     {
                         if ((char)(input % 256) == ')')
                         {
-                            if (was_input == 1)
+                            if (was_input == 0)
                             {
-                                fprintf(stderr, "unknow input");
+                                fprintf(stderr, "er )");
                                 exit(1);
                             }
                             else
                             {
-                                was_input = 0;
+                                was_input = 1;
                             }
                             count_open--;
                             print_to_staple(3);
                         }
                         else
                         {
-                            if ((char)(input % 256) == '!')
+                            if ((char)(input % 256) == '!' && input / 256 == 0)
                             {
                                 if (was_input == 1)
                                 {
