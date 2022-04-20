@@ -15,7 +15,7 @@ int print_to_staple(int mode, int out)
     {
         while (readed != '(')
         {
-            out = (out * 256 + (int)' ') * 256 + readed;
+            out = (out * 256 + (out)?(int)' ':0) * 256 + readed;
             readed = pop();
         }
         if (mode == 1)
@@ -34,7 +34,7 @@ int print_to_staple(int mode, int out)
                 }
                 else
                 {
-                    out = (out * 256 + (int)' ') * 256 + readed;
+                    out = (out * 256 + (out)?(int)' ':0) * 256 + readed;
                     readed = pop();
                 }
             }
@@ -116,7 +116,7 @@ int main_start()
                         exit(1);
                     }
                     count_open++;
-                    out_string = (out_string * 256 + (int)' ') * 256 + input;
+                    out_string = (out_string * 256 + (out_string)?(int)' ':0) * 256 + input;
                 }
                 else
                 {
@@ -159,7 +159,7 @@ int main_start()
                                 {
                                     was_input = 0;
                                 }
-                                out_string = (out_string * 256 + (int)' ') * 256 + input;
+                                out_string = (out_string * 256 + (out_string)?(int)' ':0) * 256 + input;
                             }
                             else
                             {
@@ -177,13 +177,13 @@ int main_start()
                                     }
                                     if (type_operands > 6)
                                     {
-                                        out_string = ((out_string * 256 + (int)' ') * 256 + (int)'!') * 256 + ((type_operands - 7) % 2)?0:1 + (int)'0';
+                                        out_string = ((out_string * 256 + (out_string)?(int)' ':0) * 256 + (int)'!') * 256 + ((type_operands - 7) % 2)?0:1 + (int)'0';
                                     }
                                     else
                                     {
                                         if (type_operands)
                                         {
-                                            out_string = (out_string * 256 + (int)' ') * 256 + ((type_operands - 7) % 2)?0:1 + (int)'0';
+                                            out_string = (out_string * 256 + (out_string)?(int)' ':0) * 256 + ((type_operands - 7) % 2)?0:1 + (int)'0';
                                         }
                                         else
                                         {
@@ -201,7 +201,9 @@ int main_start()
         scanf("%s", &input);
     }
 
-    print_to_staple(3);
+    out_string = print_to_staple(3, out_string);
+
+    out_string = out_string * 256 + (int)'\0';
 
     if (count_open == 0 && was_input == 1)
     {
